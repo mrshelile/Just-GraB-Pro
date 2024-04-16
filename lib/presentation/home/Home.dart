@@ -2,6 +2,7 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:justgrab_pro/presentation/home/widgets/TabItems.dart';
 import 'package:justgrab_pro/theme/colors.dart';
 
 class Home extends StatefulWidget {
@@ -20,11 +21,10 @@ class _HomeState extends State<Home> {
     return Scaffold(
       backgroundColor: white2,
       bottomNavigationBar: SingleChildScrollView(
-        // padding: const EdgeInsets.symmetric(vertical: 20),
         child: Column(
           children: [
             BottomBarInspiredOutside(
-              items: items,
+              items: tabItems,
               backgroundColor: brown1,
               color: gold1,
               colorSelected: Colors.white,
@@ -32,7 +32,7 @@ class _HomeState extends State<Home> {
               onTap: (int index) => setState(() {
                 visit = index;
               }),
-              // top: -25,
+              top: -25,
               animated: true,
               itemStyle: ItemStyle.hexagon,
               chipStyle: const ChipStyle(
@@ -90,18 +90,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-const List<TabItem> items = [
-  TabItem(
-    icon: Icons.restaurant,
-    title: 'Restaurants',
-  ),
-  TabItem(
-    icon: Icons.people,
-    title: 'Clients',
-  ),
-  TabItem(
-    icon: Icons.block,
-    title: 'BlockList',
-  ),
-];
