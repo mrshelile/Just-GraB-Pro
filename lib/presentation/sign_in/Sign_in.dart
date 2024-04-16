@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:justgrab_pro/presentation/home/Home.dart';
 import 'package:justgrab_pro/presentation/sign_in/widgets/Background.dart';
 import 'package:justgrab_pro/theme/colors.dart';
 
@@ -42,15 +43,18 @@ class _SignInState extends State<SignIn> {
                     height: size.height * 0.05,
                   ),
                   TextFormField(
+                    obscureText: isObscure,
                     decoration: InputDecoration(
                         labelText: "Password",
-                        hintText: "*******",
+                        hintText: "*********",
                         focusColor: gold1,
                         suffix: IconButton(
-                            onPressed: null,
+                            onPressed: () => setState(() {
+                                  isObscure = !isObscure;
+                                }),
                             icon: Icon(
                               isObscure
-                                  ? Icons.visibility_off
+                                  ? Icons.visibility
                                   : Icons.visibility_off,
                               color: brown1,
                             )),
@@ -72,9 +76,13 @@ class _SignInState extends State<SignIn> {
                         left: size.width * 0.1, right: size.width * 0.1),
                     child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: brown1),
-                        onPressed: () => null,
+                        onPressed: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => Home(),
+                            )),
                         child: Text(
-                          "Login in",
+                          "Login",
                           style: TextStyle(
                               color: white1, fontWeight: FontWeight.bold),
                         )),
