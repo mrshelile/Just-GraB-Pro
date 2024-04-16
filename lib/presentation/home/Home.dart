@@ -2,6 +2,9 @@ import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:justgrab_pro/presentation/home/pages/blocklist/Blocklist.dart';
+import 'package:justgrab_pro/presentation/home/pages/clients/Client.dart';
+import 'package:justgrab_pro/presentation/home/pages/resturant/Resturant.dart';
 import 'package:justgrab_pro/presentation/home/widgets/TabItems.dart';
 import 'package:justgrab_pro/theme/colors.dart';
 
@@ -14,6 +17,11 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int visit = 0;
+  final List<Widget> screens = [
+    Resturant(),
+    Client(),
+    Blocklist()
+  ];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).copyWith().size;
@@ -38,54 +46,57 @@ class _HomeState extends State<Home> {
               chipStyle: const ChipStyle(
                   drawHexagon: true, background: Colors.redAccent),
             ),
-            // SizedBox(height: 25),
           ],
         ),
       ),
-      body: Container(
-        child: Stack(
-          children: [
-            Container(
-                padding: EdgeInsets.only(top: size.height * 1),
-                height: size.height,
-                color: white2),
-            Container(
-              height: size.height * 0.15,
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius:
-                    BorderRadius.only(bottomLeft: Radius.circular(80)),
-              ),
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: size.width * 0.1,
-                  ),
-                  CircleAvatar(
-                    radius: size.width * 0.12,
-                    child: Image.asset(
-                      "assets/log2.png",
-                      // height: size.height * 0.,
-                    ),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.07,
-                  ),
-                  Container(
-                    width: size.width * 0.59,
-                    child: Text(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                      "WELCOME BACK Malefetsane Shelile",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, color: brown1),
-                    ),
-                  )
-                ],
-              ),
+      body: Stack(
+        children: [
+          Container(
+              padding: EdgeInsets.only(top: size.height * 1),
+              height: size.height,
+              color: white2),
+          Container(
+            height: size.height * 0.15,
+            decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(80)),
             ),
-          ],
-        ),
+            child: Row(
+              children: [
+                SizedBox(
+                  width: size.width * 0.1,
+                ),
+                CircleAvatar(
+                  radius: size.width * 0.12,
+                  child: Image.asset(
+                    "assets/log2.png",
+                    // height: size.height * 0.,
+                  ),
+                ),
+                SizedBox(
+                  width: size.width * 0.07,
+                ),
+                Container(
+                  width: size.width * 0.59,
+                  child: Text(
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                    "WELCOME BACK Malefetsane Shelile",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, color: brown1),
+                  ),
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            top: size.height * 0.2,
+            child: Container(
+                height: size.height * 0.686,
+                // color: gold1,
+                child: screens[visit]),
+          )
+        ],
       ),
     );
   }
