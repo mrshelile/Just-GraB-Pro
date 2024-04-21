@@ -19,18 +19,33 @@ class _ResturantState extends State<Resturant> {
       width: size.width * 1,
       child: GridView(
         scrollDirection: Axis.vertical,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: 16 / 18,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: 16 / 19,
             crossAxisSpacing: 16,
             crossAxisCount: 2,
             mainAxisSpacing: 16),
         children: [
-          Image.network('https://picsum.photos/250?image=1'),
-          Image.network('https://picsum.photos/250?image=2'),
-          Image.network('https://picsum.photos/250?image=3'),
-          Image.network('https://picsum.photos/250?image=4'),
-          Image.network('https://picsum.photos/250?image=5'),
-           Image.network('https://picsum.photos/250?image=6')
+          Container(
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                color: const Color.fromARGB(255, 228, 228, 228),
+                boxShadow: [BoxShadow(color: Colors.grey)]),
+            // height: size.height * 0.1,
+            child: Column(
+              children: [
+                Container(
+                  height: size.height * 0.2,
+                  width: size.width,
+                  decoration: BoxDecoration(
+                      image:
+                          DecorationImage(image: AssetImage("assets/res1.jpg")),
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(40))),
+                ),
+                Text("Thabos pizaa")
+              ],
+            ),
+          )
         ],
       ),
     );
