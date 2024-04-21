@@ -12,6 +12,6 @@ const List<TabItem> tabItems = [
   ),
   TabItem(
     icon: Icons.block,
-    title: 'BlockList',
+    title: 'Black List',
   ),
 ];
