@@ -65,8 +65,9 @@ class _ResturantState extends State<Resturant> {
                               color: Colors.white),
                           child: Stack(
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              Wrap(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment: WrapCrossAlignment.start,
                                 children: [
                                   Container(
                                     width: size.width,
