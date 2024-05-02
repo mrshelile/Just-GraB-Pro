@@ -39,6 +39,8 @@ dependencies:
   firebase_admin: ^0.2.0
   carousel_slider: ^4.2.1
   awesome_bottom_bar: ^1.2.4
+  google_sign_in: ^6.2.1
+  firebase_auth: ^4.19.4
 
 dev_dependencies:
   flutter_test:
