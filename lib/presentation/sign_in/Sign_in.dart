@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:justgrab_pro/presentation/forgot_password/forgot_password.dart';
 import 'package:justgrab_pro/presentation/home/Home.dart';
 import 'package:justgrab_pro/presentation/sign_in/widgets/Background.dart';
 import 'package:justgrab_pro/theme/colors.dart';
+import 'package:justgrab_pro/application/auth/auth.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -13,7 +15,11 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   bool isEmailCorrect = false;
-  bool isObscure = false;
+  bool isObscure = true;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final GlobalKey<FormState> _formKey =
+      GlobalKey<FormState>(); // A key for managing the form
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).copyWith().size;
@@ -27,9 +33,17 @@ class _SignInState extends State<SignIn> {
                 left: size.width * 0.1,
                 right: size.width * 0.1),
             child: Form(
+              key: _formKey,
               child: ListView(
                 children: [
                   TextFormField(
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "field required";
+                      }
+                      return null;
+                    },
+                    controller: _emailController,
                     decoration: InputDecoration(
                         labelText: "Email Address",
                         hintText: "example@company.com",
@@ -39,11 +53,18 @@ class _SignInState extends State<SignIn> {
                         labelStyle: TextStyle(
                             fontWeight: FontWeight.bold, color: brown1)),
                   ),
-                  SizedBox(
-                    height: size.height * 0.05,
-                  ),
+            
                   TextFormField(
+                    controller: _passwordController,
                     obscureText: isObscure,
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "field required";
+                      } else if (value == "Password@1") {
+                        return "Change this password";
+                      }
+                      return null;
+                    },
                     decoration: InputDecoration(
                         labelText: "Password",
                         hintText: "*********",
@@ -67,7 +88,9 @@ class _SignInState extends State<SignIn> {
                   Container(
                       // padding: EdgeInsets.only(left: size.width * 0.1),
                       child: GestureDetector(
-                          onTap: () {}, child: Text("Forgot password"))),
+                          onTap: () {
+                            Navigator.push(context,MaterialPageRoute(builder:(context) => ForgotPassword(),));
+                          }, child: const Text("Forgot password"))),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
@@ -76,11 +99,32 @@ class _SignInState extends State<SignIn> {
                         left: size.width * 0.1, right: size.width * 0.1),
                     child: TextButton(
                         style: TextButton.styleFrom(backgroundColor: brown1),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Home(),
-                            )),
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            var res = await Auth().userLogin(
+                                emailAddress: _emailController.text.trim(),
+                                password: _passwordController.text.trim());
+                            if (res.statusCode == 200) {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Home(),
+                                  ));
+                            } else {
+                              const snackdemo = SnackBar(
+                                content: Text(
+                                    "Failed to login! Check Password or email"),
+                                backgroundColor:
+                                    Color.fromARGB(255, 206, 87, 40),
+                                elevation: 10,
+                                behavior: SnackBarBehavior.floating,
+                                margin: EdgeInsets.all(5),
+                              );
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackdemo);
+                            }
+                          }
+                        },
                         child: Text(
                           "Login",
                           style: TextStyle(
