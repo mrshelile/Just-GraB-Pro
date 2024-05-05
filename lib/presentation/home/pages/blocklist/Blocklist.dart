@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:justgrab_pro/presentation/home/pages/blocklist/widgets/Client_block_list.dart';
 import 'package:justgrab_pro/presentation/home/pages/blocklist/widgets/Resturant_block_list.dart';
 import 'package:justgrab_pro/theme/colors.dart';
@@ -13,7 +11,7 @@ class Blocklist extends StatefulWidget {
 }
 
 class _BlocklistState extends State<Blocklist> {
-  List<Widget> screens = [ResturantBlockList(), ClientBlockList()];
+  List<Widget> screens = [const ResturantBlockList(), const ClientBlockList()];
 
   int visited = 0;
   @override
@@ -75,7 +73,7 @@ class _BlocklistState extends State<Blocklist> {
               itemCount: 2,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           SizedBox(

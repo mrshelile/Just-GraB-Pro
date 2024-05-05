@@ -1,7 +1,6 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:justgrab_pro/presentation/home/pages/blocklist/Blocklist.dart';
 import 'package:justgrab_pro/presentation/home/pages/clients/Client.dart';
 import 'package:justgrab_pro/presentation/home/pages/resturant/Resturant.dart';
@@ -17,11 +16,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int visit = 0;
-  final List<Widget> screens = [
-    Resturant(),
-    Client(),
-    Blocklist()
-  ];
+  final List<Widget> screens = [Restaurant(), Client(), Blocklist()];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).copyWith().size;
@@ -81,7 +76,7 @@ class _HomeState extends State<Home> {
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    "WELCOME BACK Malefetsane Shelile",
+                    "WELCOME BACK ",
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: brown1),
                   ),

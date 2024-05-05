@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:justgrab_pro/presentation/forgot_password/widgets/Background.dart';
-import 'package:justgrab_pro/presentation/home/Home.dart';
 import 'package:justgrab_pro/presentation/sign_in/Sign_in.dart';
 import 'package:justgrab_pro/theme/colors.dart';
 import 'package:justgrab_pro/application/auth/auth.dart';
@@ -188,7 +187,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                           }
                         },
                         child: Text(
-                          "Login",
+                          "Update",
                           style: TextStyle(
                               color: white1, fontWeight: FontWeight.bold),
                         )),

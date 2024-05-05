@@ -25,7 +25,64 @@ class Auth {
 
       return const Response(statusCode: 500, body: "no connection");
     }
- 
+  }
+
+  Future<Response> blockRestaurant({required String email}) async {
+    try {
+      final res = await firestore
+          .collection("restaurants")
+          .where("email", isEqualTo: email)
+          .get();
+      final user = await res.docs.first.reference.update({"allowed": false});
+      print(res.docs.first.reference);
+    } catch (e) {
+      print(e);
+    }
+    return const Response(statusCode: 500, body: "Unhandled error");
+  }
+
+  Future<Response> unblockRestaurant({required String email}) async {
+    try {
+      final res = await firestore
+          .collection("restaurants")
+          .where("email", isEqualTo: email)
+          .get();
+      final user = await res.docs.first.reference.update({"allowed": true});
+      print(res.docs.first.reference);
+    } catch (e) {
+      print(e);
+    }
+    return const Response(statusCode: 500, body: "Unhandled error");
+  }
+
+  Future<Response> unblockClient({required String email}) async {
+    try {
+      final res = await firestore
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .get();
+      // print(email);
+      final user = await res.docs.first.reference.update({"allowed": true});
+      // print(res.docs.first.reference);
+    } catch (e) {
+      print(e);
+    }
+    return const Response(statusCode: 500, body: "Unhandled error");
+  }
+
+  Future<Response> blockClient({required String email}) async {
+    try {
+      final res = await firestore
+          .collection("users")
+          .where("email", isEqualTo: email)
+          .get();
+
+      final user = await res.docs.first.reference.update({"allowed": false});
+      // print(res.docs.first.reference);
+    } catch (e) {
+      print(e);
+    }
+    return const Response(statusCode: 500, body: "Unhandled error");
   }
 
   Future<Response> userLogin(
@@ -47,32 +104,32 @@ class Auth {
     }
   }
 
-  Future<Response> signUp(
-      {required String emailAddress,
-      required String password,
-      required String fullName,
-      required String phone}) async {
-    try {
-      UserCredential userCredential = await auth.createUserWithEmailAndPassword(
-          email: emailAddress, password: password);
+  // Future<Response> signUp(
+  //     {required String emailAddress,
+  //     required String password,
+  //     required String fullName,
+  //     required String phone}) async {
+  //   try {
+  //     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+  //         email: emailAddress, password: password);
 
-      await firestore.collection("users").add({
-        "full_name": fullName,
-        "phone_number": phone,
-        "location": {},
-        "orders": [],
-        "user_id": userCredential.user!.uid
-      });
-      return const Response(statusCode: 201, body: "user created");
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        return const Response(statusCode: 409, body: "weak password");
-      } else if (e.code == 'email-already-in-use') {
-        return const Response(statusCode: 409, body: "email already in use");
-      }
-      return const Response(statusCode: 500, body: "Unhandled error");
-    } catch (e) {
-      return const Response(statusCode: 500, body: "Unhandled error");
-    }
-  }
+  //     await firestore.collection("users").add({
+  //       "full_name": fullName,
+  //       "phone_number": phone,
+  //       "location": {},
+  //       "orders": [],
+  //       "user_id": userCredential.user!.uid
+  //     });
+  //     return const Response(statusCode: 201, body: "user created");
+  //   } on FirebaseAuthException catch (e) {
+  //     if (e.code == 'weak-password') {
+  //       return const Response(statusCode: 409, body: "weak password");
+  //     } else if (e.code == 'email-already-in-use') {
+  //       return const Response(statusCode: 409, body: "email already in use");
+  //     }
+  //     return const Response(statusCode: 500, body: "Unhandled error");
+  //   } catch (e) {
+  //     return const Response(statusCode: 500, body: "Unhandled error");
+  //   }
+  // }
 }
