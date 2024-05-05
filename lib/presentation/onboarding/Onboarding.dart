@@ -47,7 +47,7 @@ class _OnboardingState extends State<Onboarding> {
                   builder: (BuildContext context) {
                     return Container(
                         width: MediaQuery.of(context).size.width,
-                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        margin: const EdgeInsets.symmetric(horizontal: 5.0),
                         child: Image.asset(i));
                   },
                 );
@@ -62,10 +62,10 @@ class _OnboardingState extends State<Onboarding> {
                 left: size.width * 0.1, right: size.width * 0.1),
             child: TextButton(
                 style: TextButton.styleFrom(backgroundColor: gold1),
-                onPressed: () => Navigator.push(
+                onPressed: () => Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignIn(),
+                      builder: (context) => const SignIn(),
                     )),
                 child: Text(
                   "Get Started",

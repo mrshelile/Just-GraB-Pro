@@ -1,10 +1,12 @@
 import 'package:awesome_bottom_bar/awesome_bottom_bar.dart';
 import 'package:awesome_bottom_bar/widgets/inspired/inspired.dart';
 import 'package:flutter/material.dart';
+import 'package:justgrab_pro/application/auth/auth.dart';
 import 'package:justgrab_pro/presentation/home/pages/blocklist/Blocklist.dart';
 import 'package:justgrab_pro/presentation/home/pages/clients/Client.dart';
 import 'package:justgrab_pro/presentation/home/pages/resturant/Resturant.dart';
 import 'package:justgrab_pro/presentation/home/widgets/TabItems.dart';
+import 'package:justgrab_pro/presentation/sign_in/Sign_in.dart';
 import 'package:justgrab_pro/theme/colors.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +18,7 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   int visit = 0;
-  final List<Widget> screens = [Restaurant(), Client(), Blocklist()];
+  final List<Widget> screens = const [Restaurant(), Client(), Blocklist()];
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).copyWith().size;
@@ -69,10 +71,10 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  width: size.width * 0.07,
+                  width: size.width * 0.02,
                 ),
                 Container(
-                  width: size.width * 0.59,
+                  width: size.width * 0.4,
                   child: Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
@@ -80,7 +82,19 @@ class _HomeState extends State<Home> {
                     style:
                         TextStyle(fontWeight: FontWeight.bold, color: brown1),
                   ),
-                )
+                ),
+                SizedBox(
+                    width: size.width * 0.2,
+                    child: IconButton(
+                        onPressed: () async {
+                          await Auth().auth.signOut();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignIn(),
+                              ));
+                        },
+                        icon: const Icon(Icons.logout))),
               ],
             ),
           ),

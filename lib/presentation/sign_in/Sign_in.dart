@@ -53,7 +53,6 @@ class _SignInState extends State<SignIn> {
                         labelStyle: TextStyle(
                             fontWeight: FontWeight.bold, color: brown1)),
                   ),
-            
                   TextFormField(
                     controller: _passwordController,
                     obscureText: isObscure,
@@ -89,8 +88,13 @@ class _SignInState extends State<SignIn> {
                       // padding: EdgeInsets.only(left: size.width * 0.1),
                       child: GestureDetector(
                           onTap: () {
-                            Navigator.push(context,MaterialPageRoute(builder:(context) => ForgotPassword(),));
-                          }, child: const Text("Forgot password"))),
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ForgotPassword(),
+                                ));
+                          },
+                          child: const Text("Forgot password"))),
                   SizedBox(
                     height: size.height * 0.02,
                   ),
@@ -105,7 +109,7 @@ class _SignInState extends State<SignIn> {
                                 emailAddress: _emailController.text.trim(),
                                 password: _passwordController.text.trim());
                             if (res.statusCode == 200) {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => Home(),
