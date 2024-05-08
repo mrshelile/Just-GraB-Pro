@@ -48,8 +48,11 @@ class _SignInState extends State<SignIn> {
                         labelText: "Email Address",
                         hintText: "example@company.com",
                         focusColor: gold1,
-                        suffix:
-                            Icon(isEmailCorrect ? Icons.check : Icons.close),
+                        suffix: IconButton(
+                            onPressed: () {
+                              _emailController.clear();
+                            },
+                            icon: const Icon(Icons.close)),
                         labelStyle: TextStyle(
                             fontWeight: FontWeight.bold, color: brown1)),
                   ),

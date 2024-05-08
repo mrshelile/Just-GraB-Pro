@@ -85,14 +85,35 @@ class Auth {
     return const Response(statusCode: 500, body: "Unhandled error");
   }
 
+  Future<bool> isAdmin({required String id}) async {
+    try {
+      var res = await firestore
+          .collection("users")
+          .where("user_id", isEqualTo: id)
+          .get();
+      var res2 = await firestore
+          .collection("restaurants")
+          .where("user_id", isEqualTo: id)
+          .get();
+      // print(res.docs);
+      // print(res2.docs);
+      return res.docs.isEmpty && res2.docs.isEmpty;
+    } catch (e) {}
+    return false;
+  }
+
   Future<Response> userLogin(
       {required String emailAddress, required String password}) async {
     try {
       UserCredential userCredential = await auth.signInWithEmailAndPassword(
           email: emailAddress, password: password);
       // var de = await firestore.collection("users");
-
-      return const Response(statusCode: 200, body: "Authenticated");
+      var admin = await isAdmin(id: userCredential.user!.uid);
+      if (admin) {
+        return const Response(statusCode: 200, body: "Authenticated");
+      } else {
+        throw FirebaseAuthException(code: "not-admin");
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         return const Response(statusCode: 204, body: "User not found");
